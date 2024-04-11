@@ -1,0 +1,65 @@
+/* pages/changeInfo/changeInfo.wxss */
+
+.container {
+    padding-top: 100rpx;
+}
+/* 头像 */
+.avatar {
+    height: 200rpx;
+    width: 200rpx;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.avatar-wrapper {
+    height: 100%;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.avatar-image {
+    height: 100%;
+    width: 100%;
+    margin: 0 !important;
+}
+/* 头像结束 */
+
+/* 表单 */
+form {
+    margin-top: 100rpx;
+}
+
+.item {
+    height: 100rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35rpx;
+    margin-bottom: 20rpx;
+}
+
+.item .input-item {
+    border: 1px solid #ccc;
+    display: inline-block;
+    background-color: #ffeed4;
+    border-radius: 20rpx;
+    height: 60rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-item input {
+    font-size: 30rpx;
+}
+/* 表单结束 */
+
+.submit {
+    width: 350rpx !important;
+    margin-top: 100rpx;
+    background-color: #ff9262;
+    color: #fff;
+}

@@ -1,0 +1,71 @@
+<!--pages/user/user.wxml-->
+<tabBar></tabBar>
+<view class="scrollarea">
+	<!-- 头部 -->
+	<view class="header">
+		<!-- 头像 -->
+		<view class="avatar" wx:if="{{token}}">
+			<button class="avatar-wrapper">
+				<image class="avatarImg" src="{{userInfo.avatarUrl}}"></image>
+			</button>
+		</view>
+		<!-- 用户信息 -->
+		<view class="user-info">
+			<block wx:if="{{token}}">
+				<!-- 用户名称 -->
+				<view class="user-name">
+					<view class="name">
+						{{userInfo.userName}}
+					</view>
+					<view class="vip">
+						<image src="../../assets/{{userInfo.isVip?'isVip':'notVip'}}.png" mode="cover" />
+					</view>
+				</view>
+				<!-- 对话次数 -->
+				<view class="freeAnswer">今日剩余对话数 {{remainAnswer}} / {{userInfo.aiFreeAnswers}}
+					<a href="#" class="toVip">
+						<image src="../../assets/rightArrow.png" mode="" />
+					</a>
+				</view>
+			</block>
+			<block wx:else>
+				<!-- 未登录 -->
+				<view class="login" bindtap="getUserInfo">
+					还未登录，请先登录，点击登录！
+				</view>
+			</block>
+		</view>
+		<!-- 成为Vip -->
+		<view class="becomeVip" wx:if="{{token && !userInfo.isVip}}">
+			<text class="title">成为会员</text>
+			<text class="content">无限提问</text>
+			<text class="content">更多特权</text>
+		</view>
+	</view>
+
+	<view class="welcom">
+		Welcom to Quest
+	</view>
+
+	<!-- settings模块 -->
+	<view class="setting">
+		<view class="item" wx:for="{{settings}}" wx:key="index" data-type="{{item.type}}" bindtap="toType">
+			<view class="icon">
+
+			</view>
+			<text>{{item.title}}</text>
+		</view>
+	</view>
+
+	<view class="footer">
+		<scroll-view show-scrollbar="false" scroll-x style="display: flex;white-space:nowrap;" class="model">
+			<!-- 功能模块 -->
+			<view class="model-item {{item.type}}" wx:for="{{models}}" wx:key="index" data-type="{{item.type}}" bindtap="toModel">
+				<view class="item-content">
+					<text>{{item.title}}</text>
+					<text>{{item.content}}</text>
+				</view>
+			</view>
+		</scroll-view>
+	</view>
+</view>

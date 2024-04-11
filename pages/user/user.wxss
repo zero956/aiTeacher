@@ -1,0 +1,202 @@
+/* pages/user/user.wxss */
+
+/* 整个页面占据整个视口高度，采用垂直方向的 flex 布局 */
+page {
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 滚动区域占据剩余空间，采用垂直方向的 flex 布局 */
+.scrollarea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* 使用 auto 属性实现垂直方向的滚动 */
+    background-color: #fff; /* 添加背景颜色 */
+}
+
+/* 头部样式 */
+.header {
+    flex-shrink: 0;
+    height: 250rpx;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 0 30rpx;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 头像样式 */
+.avatar {
+    overflow: hidden;
+    width: 135rpx;
+    height: 135rpx;
+    border-radius: 50%;
+    margin-right: 30rpx;
+}
+
+/* 头像容器样式 */
+.avatar-wrapper {
+    height: 100%;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 头像图片样式 */
+.avatar image {
+    height: 100%;
+    width: 100%;
+    margin: 0 !important;
+}
+
+/* 用户信息样式 */
+.user-info {
+    height: 110rpx;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 用户名样式 */
+.user-name {
+    height: 50%;
+    display: flex;
+    font-size: 40rpx;
+    font-weight: bold;
+    letter-spacing: 2rpx;
+}
+
+/* 名称样式 */
+.name {
+    margin-right: 30rpx;
+}
+
+/* 用户名图片样式 */
+.user-name image {
+    height: 50rpx;
+    width: 60rpx;
+}
+
+/* 免费提问信息样式 */
+.freeAnswer {
+    font-size: 28rpx;
+    font-weight: 200;
+    display: flex;
+}
+
+/* 前往会员样式 */
+.toVip {
+    height: 100%;
+    margin-left: 10rpx;
+    display: flex;
+    align-items: center;
+}
+
+/* 前往会员图标样式 */
+.toVip image {
+    height: 28rpx;
+    width: 28rpx !important;
+}
+
+/* 登录提示样式 */
+.login {
+    height: 128rpx;
+    display: flex;
+    align-items: center;
+}
+
+/* 成为会员样式 */
+.becomeVip {
+    position: absolute;
+    right: 0;
+    width: 240rpx;
+    height: 190rpx;
+    color: #fff;
+    background-color: #ff5307;
+    border-radius: 40rpx 0 0 40rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 23rpx;
+}
+
+/* 成为会员标题样式 */
+.becomeVip .title {
+    font-size: 38rpx;
+}
+
+/* 欢迎信息样式 */
+.welcom {
+    margin: 50rpx 0 60rpx 20rpx;
+    font-weight: 300;
+    font-size: 40rpx;
+    letter-spacing: 3rpx;
+}
+
+/* 设置样式 */
+.setting {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+    margin-bottom: 50rpx;
+}
+
+/* 单个设置项样式 */
+.setting .item {
+    width: 48%;
+    height: 110rpx;
+    border-radius: 50rpx;
+    background-color: #ffdab9;
+    margin-bottom: 30rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #706b67;
+    font-size: 32rpx;
+}
+
+.footer {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 模型样式 */
+.model {
+    height: 100%;
+    overflow-x: auto;
+}
+
+/* 模型项样式 */
+.model-item {
+    flex-shrink: 0;
+    display: inline-block;
+    height: 650rpx;
+    width: 510rpx;
+    border-radius: 80rpx;
+    background-color: #ffdab9;
+    margin: 0 25rpx;
+}
+
+.item-content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 28rpx;
+}
+
+.item-content text:first-child {
+    font-size: 70rpx;
+    letter-spacing: 3rpx;
+}

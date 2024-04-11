@@ -1,0 +1,36 @@
+<!--pages/changeInfo/changeInfo.wxml-->
+<tabBar isBack="true" bindback="backHome"></tabBar>
+<view class="container">
+	<text class="title" style="margin-bottom: 80rpx;font-size: 40rpx;">欢迎成为quest用户</text>
+	<!-- 头像 -->
+	<view class="avatar">
+		<!-- 配合 open-type="chooseAvatar" 和bindchooseavatar="chooseAvatar"获取用户微信头像 -->
+		<button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
+			<image class="avatar-image" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+		</button>
+	</view>
+	<!-- 信息区域 -->
+	<form bindsubmit="submit">
+		<view class="user-name item">
+			<text>我的名字：</text>
+			<view class="input-item">
+				<!-- 配合 type="nickname"获取用户微信昵称 -->
+				<input type="nickname" class="nickname" name="nickName" />
+			</view>
+		</view>
+		<view class="user-school item">
+			<text>所在学校：</text>
+			<view class="input-item">
+				<input type="text" class="school" name="school" maxlength="20" />
+			</view>
+		</view>
+		<view class="user-phone item">
+			<text>电话号码：</text>
+			<view class="input-item">
+				<input type="number" class="phoneNumber" maxlength="11" name="phoneNumber" />
+			</view>
+		</view>
+		<!-- 提交按钮 -->
+		<button form-type="submit" class="submit">提交</button>
+	</form>
+</view>

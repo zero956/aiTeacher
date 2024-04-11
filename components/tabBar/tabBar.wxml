@@ -1,0 +1,7 @@
+<!--components/tabBar/tabBar.wxml-->
+<view class="tablebar">
+	<view class="title">
+		<view wx:if="{{isBack}}" class="back" bindtap="back">返回</view>
+		<text>quest</text>
+	</view>
+</view>

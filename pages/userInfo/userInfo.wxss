@@ -1,0 +1,34 @@
+/* pages/userInfo/userInfo.wxss */
+
+.avatar {
+    height: 200rpx;
+    width: 200rpx;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.avatar-wrapper {
+    height: 100%;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.avatar-image {
+    height: 100%;
+    width: 100%;
+    margin: 0 !important;
+}
+
+.user-name {
+    margin-top: 100rpx;
+    width: 300rpx;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 15rpx 15rpx;
+}
+
+.submit {
+    width: 250rpx !important;
+    margin-top: 100rpx;
+}
