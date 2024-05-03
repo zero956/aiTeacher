@@ -1,0 +1,6 @@
+<!--components/avatar.wxml-->
+<view class="avatar-component">
+	<button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
+		<image class="avatar-image" src="{{avatarUrl}}" mode="cover"></image>
+	</button>
+</view>

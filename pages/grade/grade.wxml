@@ -1,0 +1,19 @@
+<!--pages/grade/grade.wxml-->
+<tabBar></tabBar>
+<view class="container">
+	<view class="logo">
+		quest
+	</view>
+	<view class="remind widthAll">
+		<text style="font-size: 40rpx;">欢迎同学来到问知</text>
+		<text>请选择你现在的阶段:</text>
+	</view>
+	<view class="grade-item widthAll">
+		<view class="item {{selectedGrade === item ?'active':''}}" wx:for="{{grades}}" wx:key="index" bindtap="selectGrade">
+			{{item}}
+		</view>
+	</view>
+	<view class="to-quest" bindtap="toQuest">
+		进入quest
+	</view>
+</view>

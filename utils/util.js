@@ -1,3 +1,6 @@
+//默认最大为5段对话
+const maxHistory = 10;
+
 const formatTime = date => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -24,6 +27,45 @@ const getIndex = function (data, name) {
     return -1;
 };
 
+//添加内容到数组
+function addHistory(role, content, history) {
+    let arr = [...history];
+    if (arr.length >= maxHistory) {
+        arr.shift();
+    }
+    arr.push({
+        role,
+        content
+    });
+    return arr;
+}
+
+//跳转页面
+function navigateTo(url) {
+    wx.showLoading({
+        title: '正在加载'
+    });
+    wx.navigateTo({
+        url: url,
+        success: function () {
+            wx.hideLoading();
+        }
+    });
+}
+
+//返回界面
+function navigateBack(deltaSize = 1) {
+    wx.showLoading({
+        title: '正在加载'
+    });
+    wx.navigateBack({
+        delta: deltaSize,
+        success: function () {
+            wx.hideLoading();
+        }
+    });
+}
+
 //延时函数
 const delay = function (time) {
     return Promise(resovle => {
@@ -33,5 +75,8 @@ const delay = function (time) {
 
 module.exports = {
     getIndex,
-    delay
+    delay,
+    addHistory,
+    navigateTo,
+    navigateBack
 };

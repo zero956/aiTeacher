@@ -12,6 +12,8 @@ export const store = observable({
         avatarUrl: defaultAvatarUrl
     },
     remainAnswer: 0,
+    totalAnswers: 0,
+    context: [],
     //修改更新token
     setToken: action(function (token) {
         this.token = token;
@@ -23,5 +25,12 @@ export const store = observable({
     //更新剩余请求次数
     setRemainAnswer: action(function (remain) {
         this.remainAnswer = remain;
+    }),
+    setTotalAnswers: action(function (total) {
+        this.totalAnswers = total;
+    }),
+    //修改ai上下文
+    setContext: action(function (context) {
+        this.context = context;
     })
 });

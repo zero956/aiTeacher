@@ -1,0 +1,19 @@
+/* components/avatar.wxss */
+.avatar-component {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.avatar-component .avatar-wrapper {
+    height: 100%;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.avatar-image {
+    height: 100%;
+    width: 100%;
+    margin: 0 !important;
+}

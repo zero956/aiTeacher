@@ -1,9 +1,8 @@
 // pages/user/user.js
 import instance from '../../utils/request';
 
-//默认头像地址
-const defaultAvatarUrl =
-    'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
+import { whoami } from '../../utils/userApi';
+import { navigateTo } from '../../utils/util';
 
 // 配置setting模块点击后跳转的页面
 let settingPage = [
@@ -14,6 +13,13 @@ let settingPage = [
     {
         name: 'feedBack',
         to: '/pages/feedBack/feedBack'
+    }
+];
+// 配置功能模块点击后跳转的页面
+let models = [
+    {
+        name: 'teacher',
+        to: '/pages/dialogue/dialogue'
     }
 ];
 
@@ -54,85 +60,90 @@ Page({
                 title: '我要提问',
                 content: '开启学习之旅'
             }
-        ]
+        ],
+        firstShow: true
     },
     async onLoad() {
-        let result;
-        let refresh;
         //自动登录
         //获取sotre的data和方法
         this.storeBindings = createStoreBindings(this, {
             store,
-            fields: ['token', 'userInfo', 'remainAnswer'],
-            actions: ['setToken', 'setUserInfo', 'setRemainAnswer']
+            fields: ['token', 'userInfo', 'remainAnswer', 'totalAnswers'],
+            actions: ['setToken', 'setUserInfo', 'setRemainAnswer', 'setTotalAnswers']
         });
+
+        // 向服务器发送请求获取数据用来渲染
+        let resp;
         try {
-            // 获取本地token
-            result = this.data.token || wx.getStorageSync('Authorization');
-            refresh = wx.getStorageSync('refresh');
-        } catch (error) {}
-        if (result) {
-            //获取token成功
-            // 向服务器发送请求获取数据用来渲染
-            let resp = await instance.get(
-                '/users/whoami',
-                {},
-                {
-                    header: {
-                        Authorization: 'Bearer ' + result,
-                        refresh: 'Bearer ' + refresh
-                    }
-                }
-            );
+            resp = await whoami();
+        } catch (error) {
+            resp = await error;
+        }
 
-            if (!resp.data) return;
-
+        if (!resp.data) {
+            this.setToken('');
+            return;
+        } else if (resp.code === 0) {
             //获取数据成功
-            let { aiFreeAnswers, avatarUrl, isVip, userName } = resp.data.data;
             let userInfo = {
-                aiFreeAnswers: aiFreeAnswers,
-                avatarUrl: avatarUrl,
-                isVip: isVip,
-                userName: userName
+                ...resp.data
             };
+
             // 更新store仓库的数据
             this.setUserInfo(userInfo);
-            this.setRemainAnswer(aiFreeAnswers);
+            this.setRemainAnswer(userInfo.aiFreeAnswers);
+            this.setTotalAnswers(userInfo.aiFreeAnswers);
+        } else {
+            wx.showToast({
+                title: resp.msg,
+                icon: 'error'
+            });
         }
     },
     toType(event) {
         // settings点击事件用来跳转相对应的页面
         console.log(event.currentTarget.dataset.type);
         //没有登录，跳转登录界面
+
         if (!this.data.token) {
-            wx.navigateTo({
-                url: '/pages/userInfo/userInfo'
-            });
+            navigateTo('/pages/userInfo/userInfo');
+            return;
         }
         let type = event.currentTarget.dataset.type;
+        //获取模块对应的页面
         let index = utils.getIndex(settingPage, type);
 
         if (index !== -1) {
-            wx.navigateTo({
-                url: settingPage[index].to
-            });
+            navigateTo(settingPage[index].to);
         }
     },
     toModel(event) {
         // models点击事件用来跳转相对应的页面
         console.log(event.currentTarget.dataset.type);
+
         //没有登录，跳转登录界面
         if (!this.data.token) {
-            wx.navigateTo({
-                url: '/pages/userInfo/userInfo'
-            });
+            navigateTo('/pages/userInfo/userInfo');
+            return;
         }
         let type = event.currentTarget.dataset.type;
+        if (type === 'teacher') {
+            //判断是否是第一次登录，第一次登录则要选择年级
+            if (!this.data.userInfo.grade) {
+                navigateTo('/pages/grade/grade');
+                return;
+            }
+        }
+        //获取模块对应的页面
+        let index = utils.getIndex(models, type);
+
+        if (index !== -1) {
+            navigateTo(models[index].to);
+        }
     },
+    //前往登录界面
     async getUserInfo() {
-        wx.navigateTo({
-            url: '/pages/userInfo/userInfo'
-        });
+        navigateTo('/pages/userInfo/userInfo');
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

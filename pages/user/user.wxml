@@ -22,7 +22,7 @@
 					</view>
 				</view>
 				<!-- 对话次数 -->
-				<view class="freeAnswer">今日剩余对话数 {{remainAnswer}} / {{userInfo.aiFreeAnswers}}
+				<view wx:if="{{!userInfo.isVip}}" class="freeAnswer">今日剩余对话数 {{remainAnswer}} / {{totalAnswers}}
 					<a href="#" class="toVip">
 						<image src="../../assets/rightArrow.png" mode="" />
 					</a>
@@ -36,6 +36,8 @@
 			</block>
 		</view>
 		<!-- 成为Vip -->
+		<!-- 占位 -->
+		<view class="occupy"></view>
 		<view class="becomeVip" wx:if="{{token && !userInfo.isVip}}">
 			<text class="title">成为会员</text>
 			<text class="content">无限提问</text>
@@ -58,7 +60,7 @@
 	</view>
 
 	<view class="footer">
-		<scroll-view show-scrollbar="false" scroll-x style="display: flex;white-space:nowrap;" class="model">
+		<scroll-view :show-scrollbar="false" enhanced scroll-x style="display: flex;white-space:nowrap;" class="model">
 			<!-- 功能模块 -->
 			<view class="model-item {{item.type}}" wx:for="{{models}}" wx:key="index" data-type="{{item.type}}" bindtap="toModel">
 				<view class="item-content">

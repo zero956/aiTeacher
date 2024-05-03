@@ -1,0 +1,36 @@
+/* pages/index/index.wxss */
+
+.container {
+    height: 100vh;
+    background-color: #ffeed2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.logo {
+    width: 300rpx;
+    height: 300rpx;
+    margin-top: 300rpx;
+}
+
+.logo image {
+    height: 100%;
+    width: 100%;
+}
+
+.title {
+    font-size: 35rpx;
+    letter-spacing: 4rpx;
+    font-weight: 600;
+    color: #ff5307;
+    margin-top: 20rpx;
+    opacity: 0;
+    animation: show 2s 1s forwards;
+}
+
+@keyframes show {
+    to {
+        opacity: 1;
+    }
+}

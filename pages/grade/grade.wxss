@@ -1,0 +1,75 @@
+/* pages/grade/grade.wxss */
+page {
+    background-color: #ffeed4;
+    height: 100%;
+}
+
+.container {
+    background-color: #ffeed4;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 0 0;
+}
+
+.widthAll {
+    width: 78%;
+}
+
+.logo {
+    height: 200rpx;
+    line-height: 200rpx;
+    font-size: 45rpx;
+    color: #fc4f08;
+    margin-top: 50rpx;
+}
+
+.remind {
+    display: flex;
+    flex-shrink: 0;
+    height: 250rpx;
+    flex-direction: column;
+    color: #944424;
+    background-color: #fff7ea;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30rpx;
+}
+
+.grade-item {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 80rpx;
+}
+
+.grade-item .item {
+    width: 45%;
+    /* display: inline-block; */
+    height: 95rpx;
+    background-color: #a96647;
+    margin-bottom: 50rpx;
+    border-radius: 20rpx;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 38rpx;
+}
+
+.to-quest {
+    margin-top: 20rpx;
+    height: 55rpx;
+    width: 300rpx;
+    border-radius: 10rpx;
+    border: 3px solid #a96647;
+    text-align: center;
+    line-height: 55rpx;
+    color: #a96647;
+}
+
+.grade-item .active {
+    background-color: #ff5307;
+}

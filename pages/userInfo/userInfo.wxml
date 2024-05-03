@@ -2,9 +2,7 @@
 <tabBar isBack="true" bindback="backHome"></tabBar>
 <view class="container">
 	<view class="avatar">
-		<button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
-			<image class="avatar-image" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-		</button>
+		<avatar avatarUrl="{{userInfo.avatarUrl}}" bindchooseAvatar="chooseAvatar"></avatar>
 	</view>
 	<form bindsubmit="submit">
 		<view class="user-name">

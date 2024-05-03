@@ -1,6 +1,6 @@
 // app.js
 App({
     globalData: {
-        userInfo: null
+        baseUrl: 'http://localhost:3002'
     }
 });

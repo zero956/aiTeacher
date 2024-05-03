@@ -10,19 +10,6 @@
     overflow: hidden;
     border-radius: 50%;
 }
-
-.avatar-wrapper {
-    height: 100%;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.avatar-image {
-    height: 100%;
-    width: 100%;
-    margin: 0 !important;
-}
 /* 头像结束 */
 
 /* 表单 */

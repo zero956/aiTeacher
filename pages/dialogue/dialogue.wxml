@@ -1,0 +1,40 @@
+<tabBar isBack="true" bindback="backHome"></tabBar>
+<view class="container">
+	<scroll-view scroll-y="true" enhanced :show-scrollbar="false" class="dialogue-content" scroll-into-view="{{toView}}" scroll-with-animation="true" refresher-enabled="true" bindrefresherrefresh="getMore" refresher-triggered="{{isFresh}}">
+		<!-- 对话框 -->
+		<view class="item" wx:for="{{history}}" wx:key="index" id="item{{index}}">
+			<view wx:if="{{item.role==='user'}}" class=" user dialogue-item">
+				<view class="content center">{{item.content}}</view>
+				<view class="avatar">
+					<image src="{{userInfo.avatarUrl}}" />
+				</view>
+			</view>
+			<view wx:else="" class="robot dialogue-item">
+				<view class="avatar">
+					<image src="../../assets/quest-logo.png" mode="" />
+				</view>
+				<view class="content center">{{item.content}}</view>
+			</view>
+		</view>
+		<mp-loading id="lo" show="{{loading}}"></mp-loading>
+
+	</scroll-view>
+	<view class="user-input">
+		<!-- 用户输入框 -->
+		<!-- 快捷指令 -->
+		<scroll-view scroll-x="true" enhanced :show-scrollbar="false" class="quick-input" enable-flex>
+			<view wx:for="{{quickModel}}" wx:key="index" class="quick-item center">
+				{{item}}
+			</view>
+		</scroll-view>
+		<view class="fun-area">
+			<view class="photo" bindtap="photo">
+				<image src="../../assets/camera.png" mode="" />
+			</view>
+			<view class="input-content center">
+				<textarea maxlength="-1" auto-height="true" model:value="{{userContent}}" />
+			</view>
+			<view class="submit center" bindtap="send">发送</view>
+		</view>
+	</view>
+</view>

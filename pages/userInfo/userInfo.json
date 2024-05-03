@@ -1,6 +1,7 @@
 {
     "usingComponents": {
-        "tabBar": "/components/tabBar/tabBar"
+        "tabBar": "/components/tabBar/tabBar",
+        "avatar": "/components/avatar/avatar"
     },
     "navigationStyle": "custom"
 }

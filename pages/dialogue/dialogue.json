@@ -1,7 +1,7 @@
 {
     "usingComponents": {
         "tabBar": "/components/tabBar/tabBar",
-        "avatar": "/components/avatar/avatar"
+        "mp-loading": "weui-miniprogram/loading/loading"
     },
     "navigationStyle": "custom"
 }

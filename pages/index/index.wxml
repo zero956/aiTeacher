@@ -1,0 +1,9 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+	<view class="logo">
+		<image src="../../assets/quest-logo.png" alt="" />
+	</view>
+	<view class="title">
+		问知 - 你的24小时专属英语老师
+	</view>
+</view>

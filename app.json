@@ -1,5 +1,13 @@
 {
-    "pages": ["pages/user/user", "pages/userInfo/userInfo", "pages/changeInfo/changeInfo", "pages/feedBack/feedBack"],
+    "pages": [
+        "pages/index/index",
+        "pages/grade/grade",
+        "pages/user/user",
+        "pages/userInfo/userInfo",
+        "pages/changeInfo/changeInfo",
+        "pages/feedBack/feedBack",
+        "pages/dialogue/dialogue"
+    ],
     "window": {
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "Weixin",

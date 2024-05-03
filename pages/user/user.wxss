@@ -8,6 +8,13 @@ page {
     flex-direction: column;
 }
 
+scroll-view ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
 /* 滚动区域占据剩余空间，采用垂直方向的 flex 布局 */
 .scrollarea {
     flex: 1;
@@ -31,6 +38,7 @@ page {
 
 /* 头像样式 */
 .avatar {
+    flex-shrink: 0;
     overflow: hidden;
     width: 135rpx;
     height: 135rpx;
@@ -59,12 +67,13 @@ page {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    overflow: hidden;
 }
 
 /* 用户名样式 */
 .user-name {
-    height: 50%;
+    /* height: 60%; */
     display: flex;
     font-size: 40rpx;
     font-weight: bold;
@@ -73,7 +82,11 @@ page {
 
 /* 名称样式 */
 .name {
-    margin-right: 30rpx;
+    margin-right: 25rpx;
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* 用户名图片样式 */
@@ -84,7 +97,7 @@ page {
 
 /* 免费提问信息样式 */
 .freeAnswer {
-    font-size: 28rpx;
+    font-size: 25rpx;
     font-weight: 200;
     display: flex;
 }
@@ -111,6 +124,13 @@ page {
 }
 
 /* 成为会员样式 */
+
+.header .occupy {
+    flex-shrink: 0;
+    width: 210rpx;
+    height: 190rpx;
+}
+
 .becomeVip {
     position: absolute;
     right: 0;

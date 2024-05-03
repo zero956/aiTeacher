@@ -11,7 +11,7 @@ class WxRequest {
         header: {
             'content-type': 'application/json'
         },
-        timeout: 6000 //默认超时时长
+        timeout: 10000 //默认超时时长
     };
 
     //拦截器对象
@@ -45,7 +45,7 @@ class WxRequest {
                 },
                 fail: err => {
                     err = this.interceptore.response(err);
-
+                    console.log(err);
                     reject(err);
                 },
                 complete: () => {
@@ -79,7 +79,7 @@ class WxRequest {
 //测试
 const instance = new WxRequest({
     baseURL: 'http://localhost:3002/api',
-    timeout: 2000
+    timeout: 60000
 });
 
 //配置请求拦截器
@@ -91,29 +91,42 @@ instance.interceptore.request = config => {
 
 //配置响应拦截器
 instance.interceptore.response = async response => {
+    console.log(response);
     if (!response.data) {
-        wx.showLoading({
-            title: '服务器连接失败',
-            mask: true
-        });
+        let msg = response.errMsg.split(' ')[1];
+        if (msg === 'timeout') {
+            return {
+                code: 408,
+                msg: '请求超时'
+            };
+        } else {
+            wx.showLoading({
+                title: '服务器连接失败',
+                mask: true
+            });
+        }
         return;
-    } else if (response.data.code === 401) {
+    }
+    //只要服务器发送了token，就更新token
+    if (response.header.authorization) {
+        console.log(response.header.authorization);
+        wx.setStorageSync('Authorization', response.header.authorization);
+    }
+    if (response.header.refresh) {
+        wx.setStorageSync('refresh', response.header.refresh);
+    }
+    //错误处理
+    if (response.data.code === 401) {
         /**
          * token无感刷新
          * token过期时，服务器会传来新的token，拦截器会拦截过期响应，重新用新的token发送请求
          */
-        //获取新的token和刷新token
-        let authorization = response.header.authorization;
-        let refresh = response.header.refresh;
-        //放入本地缓存中
-        wx.setStorageSync('Authorization', authorization);
-        wx.setStorageSync('refresh', refresh);
         let options = {
             ...temporary,
             url: temporary.requestUrl,
             header: {
-                Authorization: 'Bearer ' + authorization,
-                refresh: 'Bearer ' + refresh
+                Authorization: 'Bearer ' + response.header.authorization,
+                refresh: 'Bearer ' + response.header.refresh
             }
         };
         //重新发送请求
@@ -121,7 +134,8 @@ instance.interceptore.response = async response => {
         return resp;
     } else if (response.data.code === 500) {
     }
-    return response;
+    wx.hideLoading();
+    return response.data;
 };
 
 export default instance;

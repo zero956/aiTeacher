@@ -1,43 +1,32 @@
 // pages/userInfo/userInfo.js
 
-const defaultAvatarUrl =
-    'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
 import instance from '../../utils/request';
 import { createStoreBindings } from '../../miniprogram_npm/mobx-miniprogram-bindings/index';
 //导入store对象
 import { store } from '../../store/store';
+import { addUserInfo } from '../../utils/userApi';
+import { navigateBack } from '../../utils/util';
 
 Page({
-    data: {
-        baseUrl: 'http://localhost:3002/'
-    },
     onLoad(options) {
+        //导入store数据
         this.storeBindings = createStoreBindings(this, {
             store,
-            fields: ['token', 'userInfo', 'remainAnswer'],
-            actions: ['setToken', 'setUserInfo', 'setRemainAnswer']
+            fields: ['token', 'userInfo', 'remainAnswer', 'totalAnswers'],
+            actions: ['setToken', 'setUserInfo', 'setRemainAnswer', 'setTotalAnswers']
         });
     },
     //选择头像
     chooseAvatar(event) {
-        const that = this;
-        wx.uploadFile({
-            url: 'http://localhost:3002/api/upload/avatar',
-            filePath: event.detail.avatarUrl,
-            name: 'file',
-            header: {
-                name: 'file'
-            },
-            success(res) {
-                let data = JSON.parse(res.data);
-                let url = that.data.baseUrl + data.data;
-                that.setData({
-                    'userInfo.avatarUrl': url
-                });
-            }
-        });
+        const avatarUrl = event.detail;
+        let newUserInfo = {
+            ...this.data.userInfo,
+            avatarUrl
+        };
+        this.setUserInfo(newUserInfo);
     },
-    submit(e) {
+    async submit(e) {
+        // 注册
         let name = e.detail.value.nickName;
         if (!name) {
             wx.showToast({
@@ -47,39 +36,46 @@ Page({
             return;
         }
         const that = this;
-        this.setData({
-            'userInfo.nickName': name
+        wx.showLoading({
+            title: '登录中，请稍后'
         });
-        wx.showLoading();
         wx.login({
-            success(res) {
-                instance
-                    .post('/users/login', {
-                        avatarUrl: that.data.userInfo.avatarUrl || defaultAvatarUrl,
+            async success(res) {
+                let resp;
+                wx.hideLoading();
+                try {
+                    resp = await addUserInfo({
+                        ...that.data.userInfo,
                         userName: name,
                         code: res.code
-                    })
-                    .then(res => {
-                        wx.hideLoading();
-                        wx.setStorageSync('Authorization', res.header.authorization);
-                        wx.setStorageSync('refresh', res.header.refresh);
-                        that.setToken(res.header.authorization);
-                        let { aiFreeAnswers, avatarUrl, isVip, userName } = res.data.data;
-                        let userInfo = {
-                            aiFreeAnswers: aiFreeAnswers,
-                            avatarUrl: avatarUrl,
-                            isVip: isVip,
-                            userName: userName
-                        };
-                        that.setUserInfo(userInfo);
-                        that.setRemainAnswer(aiFreeAnswers);
                     });
+                } catch (error) {
+                    resp = await error;
+                }
+                if (resp.code === 0) {
+                    // 注册成功
+                    let userInfo = {
+                        ...resp.data
+                    };
+                    const token = wx.getStorageSync('Authorization');
+                    //更新store数据
+                    that.setToken(token);
+                    that.setUserInfo(userInfo);
+                    that.setRemainAnswer(userInfo.aiFreeAnswers);
+                    that.setTotalAnswers(userInfo.aiFreeAnswers);
+                } else {
+                    wx.showToast({
+                        title: resp.msg,
+                        icon: 'error'
+                    });
+                }
                 wx.navigateBack();
             }
         });
     },
+    //返回主界面
     backHome() {
-        wx.navigateBack();
+        navigateBack();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

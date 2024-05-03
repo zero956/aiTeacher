@@ -5,9 +5,7 @@
 	<!-- 头像 -->
 	<view class="avatar">
 		<!-- 配合 open-type="chooseAvatar" 和bindchooseavatar="chooseAvatar"获取用户微信头像 -->
-		<button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
-			<image class="avatar-image" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-		</button>
+		<avatar avatarUrl="{{userInfo.avatarUrl}}" bindchooseAvatar="chooseAvatar"></avatar>
 	</view>
 	<!-- 信息区域 -->
 	<form bindsubmit="submit">
@@ -15,7 +13,7 @@
 			<text>我的名字：</text>
 			<view class="input-item">
 				<!-- 配合 type="nickname"获取用户微信昵称 -->
-				<input type="nickname" class="nickname" name="nickName" />
+				<input type="nickname" class="nickname" name="userName" />
 			</view>
 		</view>
 		<view class="user-school item">
